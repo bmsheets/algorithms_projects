@@ -102,6 +102,7 @@ class LinkedList
                 node.next.prev = node.prev
             end
             @length -= 1
+            return
         end
         node = node.next
     end
