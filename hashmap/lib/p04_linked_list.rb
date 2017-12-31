@@ -23,6 +23,8 @@ end
 class LinkedList
   attr_reader :length
 
+  include Enumerable
+
   def initialize
     @head = nil
     @tail = nil
@@ -105,7 +107,12 @@ class LinkedList
     end
   end
 
-  def each
+  def each(&block)
+    node = @head
+    while(node)
+        block.call(node)
+        node = node.next
+    end 
   end
 
   # uncomment when you have `each` working and `Enumerable` included
