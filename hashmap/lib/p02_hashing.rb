@@ -5,7 +5,7 @@ end
 class Array
   def hash
     total = 0
-    self.each_with_index do |el, idx|
+    self.flatten.each_with_index do |el, idx|
         if el.is_a?(String)
             token = el.ord
         else
