@@ -92,10 +92,10 @@ class LinkedList
     while(node)
         if node.key == key 
             if node == @head
-                @head.next.prev = nil
+                @head.next.prev = nil if @head.next
                 @head = @head.next
             elsif node == @tail
-                @tail.prev.next = nil
+                @tail.prev.next = nil if @tail.prev
                 @tail = @tail.prev
             else
                 node.prev.next = node.next
@@ -107,16 +107,15 @@ class LinkedList
     end
   end
 
-  def each(&block)
+  def each
     node = @head
     while(node)
-        block.call(node)
+        yield node
         node = node.next
-    end 
+    end
   end
 
-  # uncomment when you have `each` working and `Enumerable` included
-  # def to_s
-  #   inject([]) { |acc, node| acc << "[#{node.key}, #{node.val}]" }.join(", ")
-  # end
+   def to_s
+     inject([]) { |acc, node| acc << "[#{node.key}, #{node.val}]" }.join(", ")
+   end
 end
