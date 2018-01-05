@@ -16,9 +16,14 @@ class QuickSort
   # In-place.
   def self.sort2!(array, start = 0, length = array.length, &prc)
     prc ||= Proc.new { |el1, el2| el1 <=> el2 }
-    QuickSort.partition(array, start, length, &prc)
-    QuickSort.sort2(array, start, mid, &prc)
-    QuickSort.sort2(array, mid, &prc)
+    mid = QuickSort.partition(array, start, length, &prc)
+    return unless mid
+    left_start = start
+    left_length = mid - start
+    right_start = mid + 1
+    right_length = length - mid - 1
+    QuickSort.sort2!(array, left_start, left_length, &prc) unless left_start < 0
+    QuickSort.sort2!(array, right_start, right_length, &prc) unless right_start >= length
   end
 
   def self.partition(array, start, length, &prc)
@@ -33,6 +38,6 @@ class QuickSort
       end
     end
     array[start], array[partition] = array[partition], array[start]
-    array
+    partition
   end
 end
