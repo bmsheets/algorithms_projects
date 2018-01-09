@@ -7,8 +7,20 @@
 
 # Import any files you need to
 
-
+require 'topological_sort'
 
 def install_order(arr)
+  max_id = arr.max {|tuple| tuple[0]}.first
+  vertices = []
+  (1..max_id).each do |id|
+    vertices.push(Vertex.new(id))
+  end
+  arr.each do |tuple|
+    from_vertex = vertices[tuple[1] - 1]
+    to_vertex = vertices[tuple[0] - 1]
+    Edge.new(from_vertex, to_vertex)
+  end
 
+  result = topological_sort(vertices).map {|vertex| vertex.value}
+  result
 end
