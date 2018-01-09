@@ -21,8 +21,8 @@ class Edge
   end
 
   def destroy!
-    @from_vertex.out_edges.select! {|edge| edge != self}
-    @to_vertex.in_edges.select! {|edge| edge != self}
+    @from_vertex.out_edges = @from_vertex.out_edges.select {|edge| edge != self}
+    @to_vertex.in_edges = @to_vertex.in_edges.select {|edge| edge != self}
     @from_vertex = nil
     @to_vertex = nil
   end
