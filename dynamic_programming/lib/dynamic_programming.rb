@@ -109,4 +109,20 @@ class DynamicProgramming
 
   def maze_solver(maze, start_pos, end_pos)
   end
+
+  def valid_moves(maze, pos)
+    width = maze.first.length
+    height = maze.length
+    moves = []
+    [-1, 1].each do |i|
+      [-1, 1].each do |j|
+        x = pos[0] + i
+        y = pos[1] + j
+        if x.between?(0, width-1) && y.between?(0, height-1) && maze[y][x] != 'X'
+          moves.push([x, y])
+        end
+      end
+    end
+    moves
+  end
 end
